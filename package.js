@@ -12,7 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
-  api.use(['ecmascript','templating','redcap3000:run-cli@0.0.1']);
+  api.use(['ecmascript','templating','redcap3000:run-cli@0.0.2']);
   api.addFiles('piconServer.js','server');
   api.addFiles(['templates.html','picon.js'],'client');
 });
