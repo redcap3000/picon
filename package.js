@@ -12,13 +12,14 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
-  api.use(['ecmascript','templating','redcap3000:run-cli@0.0.2']);
+  api.use(['redcap3000:run-cli@0.0.2'],'server');
+  api.use('templating','client');
   api.addFiles('piconServer.js','server');
-  api.addFiles(['templates.html','picon.js'],'client');
+  api.addFiles('templates.html','client');
+  api.addFiles('picon.js','client');
 });
 
 Package.onTest(function(api) {
-  api.use('ecmascript');
   api.use('tinytest');
   api.use('redcap3000:picon');
   api.addFiles('picon-tests.js');
