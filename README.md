@@ -26,3 +26,17 @@ Animations, saving and recalling icons. 'Group edit' mode.
 
 **4) Go for it!**
 
+
+##**Use**##
+
+**1) Enter RGB values into the fields to select a color; the currently selected color will appear in upper left corner.**
+
+**2) Click on the black square matrix to set the color of the LED.**
+
+**3) Press clear to 'blank' out all LED's**
+
+##**FAQ**##
+
+**Its not working**
+
+Did you copy the scripts from the Python folder into your private/ project directory? Examine the server logs which will tell you more about any errors related to your python scripts.
