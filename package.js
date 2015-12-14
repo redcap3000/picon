@@ -2,7 +2,7 @@ Package.describe({
   name: 'redcap3000:picon',
   version: '0.0.1',
   // Brief, one-line summary of the package.
-  summary: '',
+  summary: 'Gnarly Node.js web based icon editor for the utilizing Raspberry Pi Sense HAT LED in real time.',
   // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/redcap3000/picon',
   // By default, Meteor will default to using README.md for documentation.
