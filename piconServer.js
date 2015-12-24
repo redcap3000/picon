@@ -4,6 +4,9 @@ Meteor.startup(function(){
 
 });
 
+Meteor.publish("sensehat",function(){
+return Sensehat.find({});
+});
 Meteor.methods({
 	'piconInit' : function(){
 		// run on startup ...
@@ -19,5 +22,14 @@ Meteor.methods({
 		}else{
 			RunCli.run('./assets/app/clear_pixel.py');
 		}
+	},
+	'load_grid' : function(gridId){
+		if(typeof gridId != "undefined"){
+			if(Sensehat.findOne(gridId)){
+				RunCli.run('./assets/app/loadGrid.py ' + gridId);
+				return true;
+			}
+		}
+		return false;
 	}
 });

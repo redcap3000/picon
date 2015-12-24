@@ -1,6 +1,6 @@
 Package.describe({
   name: 'redcap3000:picon',
-  version: '0.0.1',
+  version: '0.0.2',
   // Brief, one-line summary of the package.
   summary: 'Gnarly Node.js web based icon editor for the utilizing Raspberry Pi Sense HAT LED in real time.',
   // URL to the Git repository containing the source code for this package.
@@ -13,10 +13,13 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
   api.use(['redcap3000:run-cli@0.0.2'],'server');
-  api.use('templating','client');
+  api.use(['spacebars','templating'],'client');
+  api.export('Sensehat',['client','server']);
   api.addFiles('piconServer.js','server');
   api.addFiles('templates.html','client');
   api.addFiles('picon.js','client');
+  api.addFiles('piconShared.js',['client','server'])
+
 });
 
 Package.onTest(function(api) {

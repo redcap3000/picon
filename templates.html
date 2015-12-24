@@ -1,3 +1,16 @@
+<template name="gridPreview">
+	<table class="gridPreview" width="128px" cellspacing="0" cellpadding="0" border="0" height="128px" style="padding:0;margin:0;border-spacing:0;">
+
+	{{#each previewRows}}
+		<tr style="width:16px">
+		{{#each this}}	
+		     <td height="2px" width="2px" style="background-color:rgb({{this}});height:1px;width:1px;padding:0;">&nbsp;</td>
+		{{/each}}
+		</tr>
+	{{/each}}
+	</table>
+</template>
+
 <template name="picon">
 
 <div id="grid">
@@ -11,6 +24,7 @@
 			<button class="clearPixels">Clear</button>
 		</div>
 	</fieldset>
+	<button class="saveGrid">Save</button>
 	<table class="picon" style="width:256px;height:256px;background-color:black;">
 		<tbody style="border:solid black 1px;">
 		<tr>
@@ -99,5 +113,29 @@
 		</tbody>
 	</table>
 </div>
+<div id="savedGrids">
+<h1>Saved</h1>
+	<ul>
+	{{#each savedGrids}}
+		<li class="recallGrid">{{title}} {{_id}} {{>gridPreview}}</li>	
+		
+	{{/each}}
+	</ul>
 
+	{{#with savedGrids}}
+	{{this}}
+	{{/with}}
+</div>
+
+</template>
+
+<template name="savedGrids">
+	<ul>
+	{{#each savedGrids}}
+	<li class="record">{{title}} {{_id}}
+			{{>gridPreview}}
+	</li>
+	{{/each}}
+
+	</ul>
 </template>
