@@ -21,7 +21,7 @@
 		</div>
 	</fieldset>
 
-	<table class="picon" style="width:256px;height:256px;background-color:rgb(0,0,0);">
+	<table class="picon" style="cursor:cell;width:256px;height:256px;background-color:rgb(0,0,0);">
 		<tbody style="border:solid black 1px;">
 		<tr>
 			<td id="0 0">&nbsp;</td> 
@@ -129,7 +129,7 @@
 
 
 <template name="gridPreview">
-	<table class="gridPreview" width="128px" cellspacing="0" cellpadding="0" border="0" height="128px" style="padding:0;margin:0;border-spacing:0;">
+	<table class="gridPreview" width="128px" cellspacing="0" cellpadding="0" border="0" height="128px" style="cursor:pointer;padding:0;margin:0;border-spacing:0;">
 	{{#each previewRows}}
 		<tr style="width:4px;">
 		{{#each this}}	
@@ -140,3 +140,33 @@
 	</table>
 </template>
 
+<template name="rgbColorsPallete">
+{{#each getPalletes}}
+	{{>rgbColors}}
+{{/each}}
+{{!local pallete}}
+
+{{#if hasSelectedPallete}}
+	<button class="updatePallete">Update</button>
+{{/if}}
+<button class="savePallete">Save</button>
+</template>
+
+
+<template name="rgbColors">
+{{#if colorName}}
+{{colorName}}
+{{/if}}
+	<table width="128px" cellspacing="0" cellpadding="0" border="0" height="128px" style="cursor:pointer;left: 600px;position: absolute;top: 50px;padding:0;margin:0;border-spacing:0;">
+
+	{{#each getColors}}
+		<tr>
+		{{#each this}}
+		 <td class="color" height="1px" width="1px" style="background-color:rgb({{rgb}});height:1px;width:1px;padding:0;">&nbsp;</td>
+		{{/each}}
+		    
+		</tr>
+	{{/each}}
+	</table>
+
+</template>

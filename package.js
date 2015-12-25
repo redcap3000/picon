@@ -15,6 +15,7 @@ Package.onUse(function(api) {
   api.use(['redcap3000:run-cli@0.0.2'],'server');
   api.use(['spacebars','templating'],'client');
   api.export('Sensehat',['client','server']);
+  api.export('RgbColors',['client','server']);
   api.addFiles('piconServer.js','server');
   api.addFiles('templates.html','client');
   api.addFiles('picon.js','client');

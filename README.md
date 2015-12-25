@@ -14,7 +14,7 @@ This package basically works by launching Python scripts that are passed data vi
 
 **Future Plans**
 
-Animations! Color palletes. 'Group edit' mode. 
+Animations! Editble color palletes. 'Group edit' mode. 
 
 ##**Installation**
 
@@ -25,6 +25,8 @@ Animations! Color palletes. 'Group edit' mode.
 **3) Add {{>picon}} template where needed**
 
 **4) Add {{>savedGrids}} for save/restore functionality**
+
+**5) Add {{>rgbColorsPallete}} for (work in progress) some preset rgb color values (with names)**
 
 **4) Go for it!**
 

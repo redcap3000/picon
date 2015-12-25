@@ -1,3 +1,19 @@
+chunk = function chunk(arr, start, amount){
+    			var result = [], 
+        		i, 
+        		start = start || 0, 
+        		amount = amount || 500, 
+        		len = arr.length;
+    			do {
+        			result.push(arr.slice(start, start+amount));
+        			start += amount;
+
+    			} while (start< len);
+
+    			return result;
+		};
+
+
 Template.picon.created = function(){
 	Session.set("currentGrid",false);
 };
@@ -36,6 +52,7 @@ Template.picon.events = {
 		// combine and set to session
 		// update 'current color div'
 		Session.set("picolor", r + ' ' + g + ' ' + b);
+		Session.set("colorName",false);
 		var theCell = document.getElementById( 'currentColor' );
 		var newColor = 'rgb('+r + ',' + g + ',' + b +')';
 		theCell.style.backgroundColor = newColor;
@@ -164,21 +181,41 @@ Template.gridPreview.helpers({
 	previewRows : function(){
 		var r = [];
 		var row = 0;
-		function chunk(arr, start, amount){
-    			var result = [], 
-        		i, 
-        		start = start || 0, 
-        		amount = amount || 500, 
-        		len = arr.length;
-    			do {
-        			result.push(arr.slice(start, start+amount));
-        			start += amount;
-
-    			} while (start< len);
-
-    			return result;
-		};
+		
 		return chunk(this.grid,0,8);
 	}
 });
+
+Template.rgbColors.created = function(){
+	Session.set("colorName",false);
+};
+
+Template.rgbColors.events({
+
+	"click td" : function(){
+		console.log(this);
+		if(typeof this.rgb == "undefined"){
+			return false;
+		}
+		Session.set("picolor",this.rgb.join(" "));
+		Session.set("colorName",this.name);
+		var theCell = document.getElementById( "currentColor" );
+		var newColor = 'rgb('+this.rgb.join(',')+')';
+		theCell.style.backgroundColor = newColor;
+		document.getElementById('r').value = this.rgb[0];
+		document.getElementById('g').value = this.rgb[1];
+		document.getElementById('b').value = this.rgb[2];
+		// update input boxes too...
+	}
+});
+
+Template.rgbColors.helpers({
+ getColors : function(){
+ 	return chunk(RgbColors,0,8);
+ },
+ colorName : function(){
+ 	return Session.get("colorName");
+ }
+
+})
 
