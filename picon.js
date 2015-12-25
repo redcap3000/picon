@@ -32,7 +32,10 @@ Template.picon.helpers({
 	},
 	hasSelectedGrid : function(){
 		return Session.get("currentGrid");
-	}
+	},
+	colorName : function(){
+ 		return Session.get("colorName");
+ 	}
 });
 
 Template.picon.events = {
@@ -121,6 +124,13 @@ Template.picon.events = {
 		}
 		Sensehat.update(Session.get("currentGrid"),{"$set" : {'grid': row}});
 	},
+	'click .deleteGrid' : function(){
+		Sensehat.remove({_id : Session.get("currentGrid")},function(){
+			Meteor.call("clear_pixel",function(){
+				Session.set("currentGrid",false);
+			});
+		});
+	},
 	'click .clearPixels' : function(evt,tmpl){
 		// add option for 'set to new color'
 		Meteor.call("clear_pixel",function(){
@@ -149,13 +159,7 @@ Template.savedGrids.helpers({
 });
 
 Template.savedGrids.events({
-	'click .deleteGrid' : function(){
-		Sensehat.remove({_id : this._id},function(){
-			Meteor.call("clear_pixel",function(){
-				Session.set("currentGrid",false);
-			});
-		});
-	},
+
 	'click .record' : function(){
 		var counter = 0;
 		console.log(this);
@@ -211,7 +215,7 @@ Template.rgbColors.events({
 
 Template.rgbColors.helpers({
  getColors : function(){
- 	return chunk(RgbColors,0,8);
+ 	return chunk(RgbColors,0,16);
  },
  colorName : function(){
  	return Session.get("colorName");

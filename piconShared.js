@@ -164,5 +164,46 @@ dodgerblue 1,30 144 255\n\
 dodgerblue 2,28 134 238\n\
 dodgerblue 3,24 116 205\n\
 dodgerblue 4,16 78 139\n\
+aliceblue, 240 248 255\n\
+steelblue, 70 130 180\n\
+steelblue 1,99 184 255\n\
+steelblue 2,92 172 238\n\
+steelblue 3,79 148 205\n\
+steelblue 4,54 100 139\n\
+lightskyblue,135 206 250\n\
+lightskyblue 1,176 226 255\n\
+lightskyblue 2,164 211 238\n\
+lightskyblue 3,141 182 205\n\
+lightskyblue 4,96 123 139\n\
+skyblue 1,135 206 255\n\
+skyblue 2,126 192 238\n\
+skyblue 3,108 166 205\n\
+skyblue 4,74 112 139\n\
+skyblue,135 206 235\n\
+deepskyblue 1,0 191 255\n\
+deepskyblue 2,0 178 238\n\
+deepskyblue 3,0 154 205\n\
+deepskyblue 4,0 104 139\n\
+peacock,51 161 201\n\
+lightblue,173 216 230\n\
+lightblue 1,191 239 255\n\
+lightblue 2,178 223 238\n\
+lightblue 3,154 192 205\n\
+lightblue 4,104 131 139\n\
+powderblue,176 224 230\n\
+cadetblue 1,152 245 255\n\
+cadetblue 2,142 229 238\n\
+cadetblue 3,122 197 205\n\
+cadetblue 4,83 134 139\n\
+turquoise 1,0 245 255\n\
+turquoise 2,0 229 238\n\
+turquoise 3,0 197 205\n\
+turquoise 4,0 134 139\n\
+cadetblue,95 158 160\n\
+darkturquoise,0	206	209\n\
+azure 1,240 255 255\n\
+azure 2,224 238 238\n\
+azure 3,193 205	205\n\
+azure 4,131 139 139\n\
 "
 );

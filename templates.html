@@ -2,22 +2,30 @@
 <template name="picon">
 
 <div id="grid">
-	<fieldset id="color" style="width:65px;height:238px;float:left;padding-left:5px;">
-		<div id="currentColor" style="width:50px;height:50px;background-color:rgb(0,0,0);padding-right:5px;margin-bottom:5px;">
-		</div>
+	<fieldset id="color" style="width:180px;margin:1%;float:left;">
+		
 		<div id="colorControls">
-			<b>R</b>&nbsp;<input type="number" max=255 min=0 value=255 class="piC" id="r"/><br/>
-			<b>G</b>&nbsp;<input type="number" max=255 min=0 value=255 class="piC"  id="g"/><br/>
-			<b>B</b>&nbsp;<input type="number" max=255 min=0 value=255 class="piC"  id="b"/><br/>
-			<button class="clearPixels">Clear</button>
+		<div id="currentColor" style="float:left;width:175px;height:40px;background-color:rgb(0,0,0);margin:5px;clear:both;">
+			{{#if colorName}}
+			<b style="float:right;background-color:white;padding:2px;">{{colorName}}</b>
+			{{/if}}
+		</div>
+			<b>R&nbsp;<input type="number" max=255 min=0 value=255 class="piC" id="r"/></b><br/>
+			<b>G&nbsp;<input type="number" max=255 min=0 value=255 class="piC"  id="g"/></b><br/>
+			<b>B&nbsp;<input type="number" max=255 min=0 value=255 class="piC"  id="b"/></b><br/>
+		
 
 			
-			{{#if hasSelectedGrid}}
+				{{>rgbColors}}
+						{{#if hasSelectedGrid}}
 				<button class="saveGrid">Save</button>
 				<button class="updateGrid">Update</button>
+				<button class="deleteGrid">Delete</button>
 			{{else}}
 				<button class="saveGrid">New</button>
 			{{/if}}
+				<button class="clearPixels">Clear</button>
+
 		</div>
 	</fieldset>
 
@@ -113,27 +121,24 @@
 </template>
 
 <template name="savedGrids">
-	<ul class="saves" style="left: 400px;position: absolute;top: 0px;list-style-type:none;padding:0;margin:0;">
+	<ul class="saves" style="float:left;clear:both;list-style-type:none;padding:0;margin:0;">
 		{{#each getGrids}}
-		<li class="record">
+		<li style="float:left;" class="record">
 				{{>gridPreview}}
+				{{#if isSelectedGrid}}	
+				
+				{{/if}}
 		</li>
-		{{#if isSelectedGrid}}	
-		<li>
-			<a href="#" class="deleteGrid">[x]</a>
-		</li>
-		{{/if}}
 		{{/each}}
 	</ul>
 </template>
 
-
 <template name="gridPreview">
-	<table class="gridPreview" width="128px" cellspacing="0" cellpadding="0" border="0" height="128px" style="cursor:pointer;padding:0;margin:0;border-spacing:0;">
+	<table class="gridPreview" width="64px" cellspacing="0" cellpadding="0" border="0" height="64px" style="cursor:pointer;">
 	{{#each previewRows}}
-		<tr style="width:4px;">
+		<tr>
 		{{#each this}}	
-		     <td height="1px" width="1px" style="background-color:rgb({{this}});height:1px;width:1px;padding:0;">&nbsp;</td>
+		     <td width="1px" height="1px" style="background-color:rgb({{this}});">&nbsp;</td>
 		{{/each}}
 		</tr>
 	{{/each}}
@@ -154,10 +159,8 @@
 
 
 <template name="rgbColors">
-{{#if colorName}}
-{{colorName}}
-{{/if}}
-	<table width="128px" cellspacing="0" cellpadding="0" border="0" height="128px" style="cursor:pointer;left: 600px;position: absolute;top: 0px;padding:0;margin:0;border-spacing:0;">
+
+	<table width="95%" cellspacing="0" cellpadding="0" border="0" style="margin-top:1em;cursor:pointer;clear:both;">
 
 	{{#each getColors}}
 		<tr>
