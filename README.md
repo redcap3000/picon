@@ -10,11 +10,11 @@ Created as a quick and easy way to start playing around with the LED on a senseh
 
 **How**
 
-This package basically works by launching Python scripts that are passed data via the commandline from meteor.
+This package basically works by launching Python scripts that are passed data via the commandline from meteor. Save functionality functions with use of python-meteor (python meteor client) which connects to a mongo database to recall the 'saved' icon.
 
 **Future Plans**
 
-Animations, saving and recalling icons. 'Group edit' mode. 
+Animations! Color palletes. 'Group edit' mode. 
 
 ##**Installation**
 
@@ -24,8 +24,20 @@ Animations, saving and recalling icons. 'Group edit' mode.
 
 **3) Add {{>picon}} template where needed**
 
+**4) Add {{>savedGrids}} for save/restore functionality**
+
 **4) Go for it!**
 
+
+##**Save/Recall Icons**
+
+You may now save and recall icons thanks in part to [python-meteor](https://github.com/hharnisc/python-meteor) . This works by connecting to your locally running meteor server (on port 3000) with the passed mongo ID. I'm experimenting with the library and have noticed it works best if packages 'insecure' and 'autopublish' are enabled.
+
+```
+pip install python-meteor
+```
+
+This feature is forthcoming and is the basis for an animation interface.
 
 ##**Use**##
 
@@ -35,8 +47,14 @@ Animations, saving and recalling icons. 'Group edit' mode.
 
 **3) Press clear to 'blank' out all LED's**
 
+**4) Press 'save' to save icon**
+
+**6) Click the mongo id of a saved icon to restore it to the pi and the main grid editor.**
+
 ##**FAQ**##
 
 **Its not working**
 
 Did you copy the scripts from the Python folder into your private/ project directory? Examine the server logs which will tell you more about any errors related to your python scripts.
+
+Install python-meteor for appropriate save functionality (otherwise you can save the icons, but they won't show up on the sensehat when accessed).
