@@ -1,10 +1,5 @@
-
 Template.picon.created = function(){
-	var self = this;
-	console.log("picon created");
-	Deps.autorun(function(){
-		self.subscribe("sensehat");
-	});
+	Session.set("currentGrid",false);
 };
 Template.picon.rendered = function(){
 	// flush all pixels ?
@@ -18,14 +13,12 @@ Template.picon.helpers({
 		var curColors = Session.get('picolor').split(' ');
 		var theCell = document.getElementById( "currentColor" );
 		var newColor = 'rgb('+curColors.join(',')+')';
+	},
+	hasSelectedGrid : function(){
+		return Session.get("currentGrid");
 	}
 });
 
-Template.savedGrids.helpers({
-	savedGrids : function(){
-		return Sensehat.find().fetch();
-	}
-});
 Template.picon.events = {
 	'click .picon td' : function(evt,tmpl){
 		var cells = evt.currentTarget.id.split(' ');
@@ -53,15 +46,14 @@ Template.picon.events = {
 		for(var x=0;x<8;x++){
                 	for(var y=0;y<8;y++){
 				var theCell = document.getElementById(x + ' ' + y);
-				console.log(theCell.style.backgroundColor);
 				if(theCell.style.backgroundColor == ''){
 					row.push([0,0,0]);
 				}else{
 					// parse and split ....
 					// remove all non al
 					var c = theCell.style.backgroundColor.split(',');
-					console.log(c);
 					var r = [];
+					console.log(c);
 					c.filter(function(o,i){
 						if(i == 0){
 							var newStr = o.split('rgb(');
@@ -78,38 +70,107 @@ Template.picon.events = {
 
 			}
 		}	
-		Sensehat.insert({grid: row});
+		Session.set("currentGrid",Sensehat.insert({grid: row}));
+	},
+	'click .updateGrid' : function(){
+		// replace whole value
+		row = [];
+		for(var x=0;x<8;x++){
+            for(var y=0;y<8;y++){
+				var theCell = document.getElementById(x + ' ' + y);
+				if(theCell.style.backgroundColor == ''){
+					row.push([0,0,0]);
+				}else{
+					// parse and split ....
+					// remove all non al
+					var c = theCell.style.backgroundColor.split(',');
+					var r = [];
+					console.log(c);
+					c.filter(function(o,i){
+						if(i == 0){
+							var newStr = o.split('rgb(');
+							r.push(parseInt(o.replace('rgb(','')));
+						}else if(i == 2){
+						// remove comma
+							r.push(parseInt(o.replace(')','')));
+						}else{
+							r.push(parseInt(o));
+						}
+					});
+					row.push(r);
+				}
+
+			}
+		}
+		Sensehat.update(Session.get("currentGrid"),{"$set" : {'grid': row}});
 	},
 	'click .clearPixels' : function(evt,tmpl){
 		// add option for 'set to new color'
-		console.log('clear pix');
 		Meteor.call("clear_pixel",function(){
 			for(var i=0;i<8;i++){
 				for(var z=0;z<8;z++){
-					console.log( i + ' ' + z);
 					var theCell = document.getElementById(i + ' ' + z);
-					theCell.style.backgroundColor = "black";
+					theCell.style.backgroundColor = "rgb(0,0,0)";
 				}
 			}
-	}	
+			}	
 		);
 	}
 };
 
+Template.savedGrids.created = function(){
+	this.subscribe("sensehat");
+};
+
+Template.savedGrids.helpers({
+	getGrids : function(){
+		return Sensehat.find();
+	},
+	isSelectedGrid : function(){
+		return Session.equals("currentGrid",this._id);
+	}
+});
+
+Template.savedGrids.events({
+	'click .deleteGrid' : function(){
+		Sensehat.remove({_id : this._id},function(){
+			Meteor.call("clear_pixel",function(){
+				Session.set("currentGrid",false);
+			});
+		});
+	},
+	'click .record' : function(){
+		var counter = 0;
+		console.log(this);
+		Meteor.call("load_grid",this._id);
+		for(var i=0;i<8;i++){
+			for(var z=0;z<8;z++){
+				var theCell = document.getElementById(i + ' ' + z);
+				if(this.grid[counter] != '' && this.grid[counter].length == 3){
+					theCell.style.backgroundColor = 'rgb(' + this.grid[counter].join(',') + ')';
+				}else{
+					theCell.style.backgroundColor = 'rgb(0,0,0)';
+				}
+				counter++;
+			}
+		}
+		Session.set("currentGrid",this._id);
+	}
+});
+
+// takes a Sensehat.grid property and groups it according to 8x8 (instead of
+// 64 items) makes using {#each} a lot little easier
 Template.gridPreview.helpers({
-	'previewRows' : function(){
+	previewRows : function(){
 		var r = [];
 		var row = 0;
-
 		function chunk(arr, start, amount){
     			var result = [], 
         		i, 
         		start = start || 0, 
         		amount = amount || 500, 
         		len = arr.length;
-
     			do {
-        			//console.log('appending ', start, '-', start + amount, 'of ', len, '.');
         			result.push(arr.slice(start, start+amount));
         			start += amount;
 
@@ -117,43 +178,7 @@ Template.gridPreview.helpers({
 
     			return result;
 		};
-
 		return chunk(this.grid,0,8);
-		this.grid.map(function(o,i){
-			col = 0;
-			return o.map(function(x){
-				if(x == 0){
-					o.rowStart = true;
-				}
-				var theCell = document.getElementById('p_' + i + ' ' + x);
-				r.push(o.rgbColor = 'rgb(' + o.join(',') + ')');
-				if(x % 7 === 0){
-					o.rowEnd = true;
-				}
-				return o;
-			});
-			row++;
-		});
 	}
 });
-Template.savedGrids.events({
 
-	'click .record' : function(){
-
-		var counter = 0;
-		Meteor.call("load_grid",this._id);
-		for(var i=0;i<8;i++){
-			for(var z=0;z<8;z++){
-				console.log(i + ' ' + z);
-				var theCell = document.getElementById(i + ' ' + z);
-		
-				console.log(this.grid[counter].join(',')); 
-				theCell.style.backgroundColor = 'rgb(' + this.grid[counter].join(',') + ')';
-				counter++;
-			}
-
-		}
-		Session.set("currentGrid",this._id);
-	}
-
-});
