@@ -26,7 +26,7 @@ Animations! Editble color palletes. 'Group edit' mode.
 
 **4) Add {{>savedGrids}} for save/restore functionality**
 
-**5) Add {{>rgbColorsPallete}} for (work in progress) some preset rgb color values (with names)**
+**5) Add {{>rgbColors}} for (work in progress) some preset rgb color values (with names)**
 
 **4) Go for it!**
 
