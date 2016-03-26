@@ -1,10 +1,10 @@
-#picon
+# picon
 
 ============
-##Node.js web interface to control Raspberry Pi Sense HAT LED's
+## Node.js web interface to control Raspberry Pi Sense HAT LED's
 
 
-**Why?**
+## Why?
 
 Created as a quick and easy way to start playing around with the LED on a sensehat. Also helpful in determining what RGB values look like on the sensehat without having to write some python scripts.
 
